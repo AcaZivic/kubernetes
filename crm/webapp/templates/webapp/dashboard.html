@@ -1,0 +1,93 @@
+{% extends 'webapp/base.html' %}
+
+{% block content %}
+
+    <h5> Welcome, {{user}}! 👋 </h5>
+
+    <hr/>
+
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'create-customer' %}">
+
+        Create a new customer &nbsp; <i class="fa fa-plus-circle" aria-hidden="true"></i>
+
+    </a>
+
+    <hr/> 
+
+    <div class="mb-3">
+        <form method="GET" action="{% url 'dashboard' %}">
+            <div class="input-group">
+                <!-- Polje za unos teksta. Vrednost se popunjava prethodnim upitom za pretragu. -->
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    name="q" 
+                    placeholder="Pretraži po imenu, emailu, gradu..." 
+                    value="{{ search_query|default:'' }}"
+                >
+                <button class="btn btn-primary" type="submit">Pretraži</button>
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-hover table-bordered">
+
+        <thead class="table-light">
+
+            <tr>
+
+                {% comment %} <th scope="col"> ID </th> {% endcomment %}
+                <th scope="col"> Full name </th>
+                <th scope="col"> Email </th>
+                <th scope="col"> Phone </th>
+                <th scope="col"> Address </th>
+                <th scope="col"> City </th>
+                <th scope="col"> Postal code </th>
+                <th scope="col"> Country </th>
+
+                <th scope="col"> Date joined </th>
+
+                <th scope="col"> View </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% if customers %}
+
+            {% for customer in customers %}
+
+            <tr>
+
+                {% comment %} <td> {{customer.id}} </td> {% endcomment %}
+
+                <td> {{customer.first_name}}  {{customer.last_name}} </td>
+
+                <td> {{customer.email}} </td>
+
+                <td> {{customer.phone}} </td>
+                <td> {{customer.address}} </td>
+                <td> {{customer.city}} </td>
+                <td> {{customer.postal_code}} </td>
+                <td> {{customer.country}} </td>
+
+                <td> {{customer.creation_date}} </td>
+
+                <td> <a class="btn btn-success btn-sm" href="{% url 'customer' customer.id %}"> <i class="fa fa-eye" aria-hidden="true"></i> </a> </td>
+
+            </tr>
+
+            {% endfor %}
+        
+        {% endif %}
+
+
+        </tbody>
+
+
+    </table>
+
+
+{% endblock %}

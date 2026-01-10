@@ -1,0 +1,21 @@
+
+.form-layout{
+    border-radius: 15px;
+    /* width: 500px; */
+}
+
+.message-text{
+    color: white;
+}
+
+a.nav-link{
+    font-weight: bolder!important;
+}
+a.nav-link:hover{
+    font-size:1.1rem;
+    text-decoration: underline;
+    transition:all 0.2s ease-in-out;
+}
+
+
+

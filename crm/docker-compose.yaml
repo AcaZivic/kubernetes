@@ -1,0 +1,34 @@
+# version: '3.9'
+services:
+  webapp:
+    depends_on:
+      - db
+    build:
+      context: .
+      dockerfile: ./webapp/Dockerfile
+    image: crm:v1.0
+    environment:
+      - PORT=8020
+    env_file:
+      - ./.env.prod
+    ports:
+      - "8001:8020"
+    command: sh -c "chmod +x /app/webapp/migrate.sh && sh /app/webapp/migrate.sh && sh /app/webapp/entrypoint.sh"
+  db:
+    image: postgres:18
+    restart: always
+    command: -p 5434
+    environment:
+      - PORT=5434
+    env_file:
+      - .env.prod
+    expose:
+      - 5434
+    ports:
+      - "5434:5434"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+volumes:
+  postgres_data:
+  
