@@ -5,7 +5,7 @@ services:
       - db
     build:
       context: .
-      dockerfile: ./webapp/Dockerfile
+      dockerfile: Dockerfile
     image: crm:v1.0
     environment:
       - PORT=8020
@@ -13,13 +13,13 @@ services:
       - ./.env.prod
     ports:
       - "8001:8020"
-    command: sh -c "chmod +x /app/webapp/migrate.sh && sh /app/webapp/migrate.sh && sh /app/webapp/entrypoint.sh"
+    command: sh -c "chmod +x /app/migrate.sh && sh /app/migrate.sh && sh /app/entrypoint.sh"
   db:
     image: postgres:18
     restart: always
     command: -p 5434
-    environment:
-      - PORT=5434
+    # environment:
+    #   - PORT=5434
     env_file:
       - .env.prod
     expose:
