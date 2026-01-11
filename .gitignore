@@ -11,7 +11,7 @@ dist/
 build/
 db.sqlite3
 *.env
-*.env.prod
+.env.prod
 *.venv
 venv/
 .DS_Store
