@@ -40,22 +40,22 @@ jobs:
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
       - name: Update deployment secrets
         run: |
-          cat << EOF >> .env.prod
+          # cat << EOF >> crm/.env.prod
           # AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           # AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
-          DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
-          DJANGO_SUERPUSER_EMAIL=${{ secrets.DJANGO_SUERPUSER_EMAIL }}
-          DJANGO_SECRET_KEY=${{ secrets.SECRET_KEY }}
-          #ENV_ALLOWED_HOST=${{ secrets.ENV_ALLOWED_HOST }}
-          POSTGRES_DB=${{ secrets.POSTGRES_DB }}
-          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-          POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
-          POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
+          # DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
+          # DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
+          # DJANGO_SUERPUSER_EMAIL=${{ secrets.DJANGO_SUERPUSER_EMAIL }}
+          # DJANGO_SECRET_KEY=${{ secrets.SECRET_KEY }}
+          # #ENV_ALLOWED_HOST=${{ secrets.ENV_ALLOWED_HOST }}
+          # POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+          # POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+          # POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+          # POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
+          # POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
           EOF
-          kubectl delete secret django-crm-prod-env
-          kubectl create secret generic django-crm-prod-env --from-env-file=.env.prod
+          # kubectl delete secret django-crm-prod-env
+          # kubectl create secret generic django-crm-prod-env --from-env-file=crm/.env.prod
       - name: Update Deployment image
         run: |
           kubectl set image deployment/crm-deployment crm=registry.digitalocean.com/django-crm/crm:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
