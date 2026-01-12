@@ -40,7 +40,7 @@ jobs:
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
       - name: Update deployment secrets
         run: |
-          cat << EOF >> crm/.env.prod
+          cat << EOF >> .env.prod
           # AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
           # AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
@@ -55,7 +55,7 @@ jobs:
           POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
           EOF
           kubectl delete secret django-crm-prod-env
-          kubectl create secret generic django-crm-prod-env --from-env-file=crm/.env.prod
+          kubectl create secret generic django-crm-prod-env --from-env-file=.env.prod
       - name: Update Deployment image
         run: |
           kubectl set image deployment/crm-deployment crm=registry.digitalocean.com/django-crm/crm:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
