@@ -43,6 +43,3 @@ spec:
       targetPort: 8002
   selector:
     app: crm-deployment
-
-
-
