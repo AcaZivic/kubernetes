@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crm-deployment
+  labels:
+    app: crm-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: crm-deployment
+  template:
+    metadata:
+      labels:
+        app: crm-deployment
+    spec:
+      containers:
+      - name: crm
+        image: registry.digitalocean.com/django-crm/crm:latest
+        imagePullPolicy: Always
+        envFrom:
+          - secretRef:
+              name: django-crm-prod-env
+        env:
+          - name: PORT
+            value: "8002"
+        ports:
+        - containerPort: 8002
+      imagePullSecrets:
+        - name: django-crm
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: django-crm-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8002
+  selector:
+    app: crm-deployment
+
+
+

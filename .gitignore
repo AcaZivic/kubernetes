@@ -10,9 +10,10 @@ __pycache__/
 dist/
 build/
 db.sqlite3
-*.env
 .env.prod
+*.env
 *.venv
+.kube/
 venv/
 .DS_Store
 *.log
