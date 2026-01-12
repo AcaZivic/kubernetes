@@ -51,7 +51,7 @@ jobs:
            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
            POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
            POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
-          EOF
+           EOF
            kubectl delete secret django-crm-prod-env
            kubectl create secret generic django-crm-prod-env --from-env-file=crm/.env.prod
       - name: Update Deployment image
