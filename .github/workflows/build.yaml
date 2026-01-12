@@ -38,7 +38,7 @@ jobs:
       - name: K8s cluster kubeconfig file with/ short-lived creds
         run: |
           doctl kubernetes cluster kubeconfig save --expiry-seconds 600 ${{ env.CLUSTER_NAME }}
-      - name: Update deployment secrets
+      # - name: Update deployment secrets
         # run: |
         #    cat << EOF >> crm/.env.prod
         #    AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
