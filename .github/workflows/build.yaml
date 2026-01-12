@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Insall doctl
+      - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DO_API_TOKEN_KEY }}
@@ -41,13 +41,10 @@ jobs:
       - name: Update deployment secrets
         run: |
            cat << EOF >> crm/.env.prod
-           AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}
-           AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
            DJANGO_SUPERUSER_USERNAME=${{ secrets.DJANGO_SUPERUSER_USERNAME }}
            DJANGO_SUPERUSER_PASSWORD=${{ secrets.DJANGO_SUPERUSER_PASSWORD }}
            DJANGO_SUERPUSER_EMAIL=${{ secrets.DJANGO_SUERPUSER_EMAIL }}
            SECRET_KEY=${{ secrets.SECRET_KEY }}
-           ENV_ALLOWED_HOST=${{ secrets.ENV_ALLOWED_HOST }}
            DB_IGNORE_SSL=${{ secrets.DB_IGNORE_SSL }}
            POSTGRES_DB=${{ secrets.POSTGRES_DB }}
            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
