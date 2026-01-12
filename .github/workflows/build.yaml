@@ -26,7 +26,7 @@ jobs:
       - name: Login to DO Container Registry with short-lived creds
         run: doctl registry login --expiry-seconds 1200
       - name: Build container image
-        working-directory: ./web
+        working-directory: ./crm
         run: |
           docker build -f Dockerfile \
             -t registry.digitalocean.com/django-crm/crm:latest \
